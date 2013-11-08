@@ -13,5 +13,5 @@ Available for
 ----------------
 Astah SysML 1.1 or later
 
-<img src="https://raw.github.com/ChangeVision/astah-sysml-api-sample/master/astah-sysml-api-sample-creating-mindmap-diagram/SampleSysmlMindmapDiagram.png" width="720"/>
+<img src="https://github.com/ChangeVision/astah-sysml-api-sample/blob/master/astah-sysml-api-sample-creating-mindmap-diagram/SampleSysmlMindmapDiagram.png?raw=true" width="720"/>
 
