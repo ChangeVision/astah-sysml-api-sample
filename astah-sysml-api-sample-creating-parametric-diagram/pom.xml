@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.change_vision.astah</groupId>
+	<artifactId>astah-sysml-api-sample-creating-parametric-diagram</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SysML Parametric API create sample</name>
+	<properties>
+		<astah.version>6.8-SNAPSHOT</astah.version>
+		<astah.edition>sys</astah.edition>
+	</properties>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<outputDirectory>target/classes</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+		</testResources>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.change_vision.astah</groupId>
+			<artifactId>astah-api</artifactId>
+			<version>${astah.version}</version>
+			<!--
+			<scope>system</scope>
+			<systemPath>${astahPath}/astah-api.jar</systemPath>
+			-->
+		</dependency>
+		<dependency>
+			<groupId>com.change_vision.astah</groupId>
+			<artifactId>jude</artifactId>
+			<version>${astah.version}</version>
+			<!--
+			<scope>system</scope>
+			<systemPath>${astahPath}/astah-sys.jar</systemPath>
+			-->
+		</dependency>
+	</dependencies>
+	<description>Sample project of Astah SysML API for Creating Parametric Diagram</description>
+</project>
