@@ -24,6 +24,9 @@ import com.change_vision.jude.api.inf.model.IValueType;
 import com.change_vision.jude.api.inf.presentation.INodePresentation;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for creating an internal block diagram and all models of internal block diagram.
+ */
 public class CreatingSampleSysmlInternalBlockDiagram {
 	public static void main(String[] args) {
 		CreatingSampleSysmlInternalBlockDiagram sample = new CreatingSampleSysmlInternalBlockDiagram();
@@ -47,25 +50,37 @@ public class CreatingSampleSysmlInternalBlockDiagram {
 	public void create(String name) throws ClassNotFoundException,
 			LicenseNotFoundException, ProjectNotFoundException, IOException,
 			ProjectLockedException {
+		// ProjectAccessor is an interface to Operate Astah project like creating project and getting project root.
 		ProjectAccessor projectAccessor = AstahUtil.getProjectAccessor();
 		try {
+			
+			// Create a project
+	        // Please don't forget to save and close the project.
 			projectAccessor.create(name);
+			
+			// Begin transaction when creating or editing models
+			// Please don't forget to end the transaction
 			TransactionManager.beginTransaction();
 
 			createInternalBlockModels(projectAccessor);
 
 			createInternalBlockDiagrams(projectAccessor);
 
+			// End transaction
 			TransactionManager.endTransaction();
+			
+			// Save the project
 			projectAccessor.save();
 
 			System.out.println("Create " + name + " Project done.");
 		} catch (InvalidEditingException e) {
 			e.printStackTrace();
+			TransactionManager.abortTransaction();
 		} catch (InvalidUsingException e) {
 			e.printStackTrace();
-		} finally {
 			TransactionManager.abortTransaction();
+		} finally {
+			// Close the project
 			projectAccessor.close();
 		}
 	}
@@ -73,8 +88,13 @@ public class CreatingSampleSysmlInternalBlockDiagram {
 	private void createInternalBlockModels(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		
+		// Get a root model of the project
+        // Astah SysML model is tree structure. The project model is the root.
 		IModel project = projectAccessor.getProject();
 
+		// Most of SysML models like block, constraint parameter can be created by SysMLModelEditor.
+		// All models on internal block diagram can be created from SysMLModelEditor.
 		SysmlModelEditor sme = ModelEditorFactory.getSysmlModelEditor();
 
 		IPackage sysMLPackage = sme.createPackage(project, "SysML");
@@ -320,22 +340,27 @@ public class CreatingSampleSysmlInternalBlockDiagram {
 	private void createInternalBlockDiagrams(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
-		// Diagram
+		// Diagrams are created by diagramEditor
+		// InternalBlockDiagramEditor can be used to create presentations on a internal block diagram.
 		InternalBlockDiagramEditor ibdde = projectAccessor
 				.getDiagramEditorFactory().getInternalBlockDiagramEditor();
 		IInternalBlockDiagram ibd1 = ibdde.createInternalBlockDiagram(
 				(IBlock) AstahUtil
 						.findBlockByFullName("HSUVStructure::PowerSubsystem"),
 				"CAN Bus description");
-		// part,port,connector was auto create
+		// part,port,connector will be automatically created.
 		IInternalBlockDiagram ibd2 = ibdde.createInternalBlockDiagram(
 				(IBlock) AstahUtil
 						.findBlockByFullName("HSUVStructure::HybridSUV"),
 				"HybridSUV Internal Structure");
-		// part,port,connector was auto create
 
 		// "CAN Bus description"
+		// Target diagram must be set to diagramEditor.
 		ibdde.setDiagram(ibd1);
+		
+		// There are only two kinds of presentation APIs in Astah.
+		// INodePresentation is for those presentations whose shape are like rectangle like block and port.
+		// ILinkPresentation is for those presentations whose shape are like line like connector and association.
 		INodePresentation noNeedPs = AstahUtil.getPartPresentationByLabel(ibd1,
 				":WheelHubAssembly");
 		ibdde.deletePresentation(noNeedPs);

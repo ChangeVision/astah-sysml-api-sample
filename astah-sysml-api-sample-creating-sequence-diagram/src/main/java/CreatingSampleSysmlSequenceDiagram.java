@@ -22,6 +22,9 @@ import com.change_vision.jude.api.inf.model.ISequenceDiagram;
 import com.change_vision.jude.api.inf.presentation.INodePresentation;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for creating an sequence diagram and all models of sequence diagram.
+ */
 public class CreatingSampleSysmlSequenceDiagram {
 	public static void main(String[] args) {
 		CreatingSampleSysmlSequenceDiagram sample = new CreatingSampleSysmlSequenceDiagram();
@@ -45,24 +48,34 @@ public class CreatingSampleSysmlSequenceDiagram {
 	public void create(String name) throws ClassNotFoundException,
 			LicenseNotFoundException, ProjectNotFoundException, IOException,
 			ProjectLockedException {
+		// ProjectAccessor is an interface to Operate Astah project like creating project and getting project root.
 		ProjectAccessor projectAccessor = AstahAPI.getAstahAPI()
 				.getProjectAccessor();
 		try {
+			// Create a project
+	        // Please don't forget to save and close the project.
 			projectAccessor.create(name);
+			
+			// Begin transaction when creating or editing models
+			// Please don't forget to end the transaction
 			TransactionManager.beginTransaction();
 
 			createSequenceAndDiagram(projectAccessor);
 
+			// End transaction
 			TransactionManager.endTransaction();
+			
+			// Save the project
 			projectAccessor.save();
 
 			System.out.println("Create " + name + " Project done.");
 		} catch (InvalidEditingException e) {
 			e.printStackTrace();
+			TransactionManager.abortTransaction();
 		} catch (InvalidUsingException e) {
 			e.printStackTrace();
-		} finally {
 			TransactionManager.abortTransaction();
+		} finally {
 			projectAccessor.close();
 		}
 	}
@@ -70,23 +83,34 @@ public class CreatingSampleSysmlSequenceDiagram {
 	private void createSequenceAndDiagram(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		// Get a root model of the project
+        // Astah SysML model is tree structure. The project model is the root.
 		IModel project = projectAccessor.getProject();
 
+		// Most of SysML models like block, constraint parameter can be created by SysMLModelEditor.
 		SysmlModelEditor sme = ModelEditorFactory.getSysmlModelEditor();
 		IPackage hSUVStructurePackage = sme.createPackage(project,
 				"HSUVStructure");
+		
+		// Models on usecase diagram can be created by UseCaseModelEditor.
 		UseCaseModelEditor ucme = ModelEditorFactory.getUseCaseModelEditor();
 		IClass driverActor = ucme.createActor(hSUVStructurePackage, "Driver");
 		IBlock hybridSUVBlock = sme.createBlock(hSUVStructurePackage,
 				"HybridSUV");
 		hybridSUVBlock.addStereotype("system");
 
+		// Diagrams are created by diagramEditor.
 		SequenceDiagramEditor seqde = projectAccessor.getDiagramEditorFactory()
 				.getSequenceDiagramEditor();
 		ISequenceDiagram seq = seqde.createSequenceDiagram(
 				hSUVStructurePackage, "DriveBlackBox");
+		// SequenceDiagramEditor can be used to create presentations on a sequence diagram.
+		// Target diagram must be set to diagramEditor.
 		seqde.setDiagram(seq);
 
+		// There are only two kinds of presentation APIs in Astah.
+		// INodePresentation is for those presentations whose shape are like rectangle like block and port.
+		// ILinkPresentation is for those presentations whose shape are like line like connector and association.
 		INodePresentation driverP = seqde.createLifeline("driver", 0.0D);
 		driverP.setProperty("stereotype_visibility", "false");
 		((ILifeline) driverP.getModel()).setBase(driverActor);
@@ -102,6 +126,7 @@ public class CreatingSampleSysmlSequenceDiagram {
 				new Point2D.Double(-50, 300), 750.0D, 520.0D);
 		ICombinedFragment par = (ICombinedFragment) parP.getModel();
 		par.addInteractionOperand("", "self.oclInState(accelerating/cruising)");
+		// Set length of the first operand is set as 370
 		parP.setProperty("operand.1.length", "370");
 		INodePresentation controlSpeedP = seqde.createCombinedFragment(
 				"controlSpeed", "alt", new Point2D.Double(0, 350), 650.0D,

@@ -45,6 +45,10 @@ import com.change_vision.jude.api.inf.presentation.IPresentation;
 import com.change_vision.jude.api.inf.project.ModelFinder;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for getting all kinds of models in Astah Sysml.
+ * How to find models by find method is shown.
+ */
 public class ReadingSampleSysmlModels {
 
 	private static ProjectAccessor projectAccessor;
@@ -64,6 +68,7 @@ public class ReadingSampleSysmlModels {
 		} catch (Exception e) {
 			throw e;
 		} finally {
+			//Close project
 			projectAccessor.close();
 
 			showInConsle(0, "[End ReadingSampleSysmlModels]");
@@ -82,17 +87,23 @@ public class ReadingSampleSysmlModels {
 	private static void showModels() throws Exception, InvalidUsingException {
 
 		showInConsle(1, "[1.Start to show models.]");
-
+        
+		// Show how to get model informations of requirement diagram such as requirement and testcase 
 		showRequirementModels();
 
+		// Show how to get model informations of block definition diagram such as block and value 
 		showBlockModels();
 
+		// Show how to get model informations of usecase diagram such as usecase and actor 
 		showUseCaseModels();
 
+		// Show how to get model informations of activity diagram such as initial state and activity 
 		showActivityModels();
 
+		// Show how to get model informations of state machine diagram such as state and transition 
 		showStateMachineModels();
 
+		// Show how to get model informations of sequence diagram such as lifeline and message 
 		showSequenceModels();
 
 		showInConsle(1, "[1.End to show models.]");
@@ -344,7 +355,9 @@ public class ReadingSampleSysmlModels {
 	 */
 	private static void openSampleModel(String path) throws Exception {
 		InputStream astahFileStream = ReadingSampleSysmlModels.class
-				.getResourceAsStream(path);
+				.getResourceAsStream(path);           
+		// Open a project.
+        // Please don't forget to save and close the project
 		projectAccessor.open(astahFileStream);
 	}
 
@@ -355,6 +368,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findDiagrams() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -371,6 +388,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findRequirements() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -387,6 +408,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findTestCases() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -404,6 +429,10 @@ public class ReadingSampleSysmlModels {
 	 */
 	private static INamedElement[] findDeriveReqtDependencies()
 			throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -422,6 +451,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findCopyDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -439,6 +472,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findSatisfyDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -457,6 +494,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findVerifyDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -474,6 +515,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findRefineDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -491,6 +536,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findTraceDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -508,6 +557,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findAllocateDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -526,6 +579,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findBlocks() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -542,6 +599,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findInterfaceBlocks() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -558,6 +619,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findConstraintBlocks() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -574,6 +639,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findValueTypes() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -590,6 +659,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findUnits() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -606,6 +679,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findQuantityKinds() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -622,6 +699,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findInterfaces() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -640,6 +721,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findAssociations() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -656,6 +741,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -685,6 +774,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findFlowDependencies() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -702,6 +795,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findActors() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -719,6 +816,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findUseCases() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -735,6 +836,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findIncludes() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -751,6 +856,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findExtends() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -767,6 +876,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findActivityNodes() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -783,6 +896,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findVertexs() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -799,6 +916,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws Exception
 	 */
 	private static INamedElement[] findLifelines() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -815,6 +936,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws ExceIMessageption
 	 */
 	private static INamedElement[] findMessages() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -831,6 +956,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws ExceIMessageption
 	 */
 	private static INamedElement[] findInteractionFragments() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {
@@ -847,6 +976,10 @@ public class ReadingSampleSysmlModels {
 	 * @throws ExceIMessageption
 	 */
 	private static INamedElement[] findInteractions() throws Exception {
+		// There are three methods to search from ProjectAccessor.
+        // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+		// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+		// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 		INamedElement[] foundElements = projectAccessor
 				.findElements(new ModelFinder() {
 					public boolean isTarget(INamedElement namedElement) {

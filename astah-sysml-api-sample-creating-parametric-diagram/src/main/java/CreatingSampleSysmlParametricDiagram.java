@@ -28,6 +28,9 @@ import com.change_vision.jude.api.inf.presentation.INodePresentation;
 import com.change_vision.jude.api.inf.presentation.IPresentation;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for creating an parametric diagram and all models of parametric diagram.
+ */
 public class CreatingSampleSysmlParametricDiagram {
 	public static void main(String[] args) {
 		CreatingSampleSysmlParametricDiagram sample = new CreatingSampleSysmlParametricDiagram();
@@ -51,29 +54,43 @@ public class CreatingSampleSysmlParametricDiagram {
 	public void create(String name) throws ClassNotFoundException,
 			LicenseNotFoundException, ProjectNotFoundException, IOException,
 			ProjectLockedException {
+		
+		// ProjectAccessor is an interface to Operate Astah project like creating project and getting project root.
 		ProjectAccessor projectAccessor = AstahUtil.getProjectAccessor();
 		try {
+			// Create a project
+	        // Please don't forget to save and close the project.
 			projectAccessor.create(name);
+			
+			// Begin transaction when creating or editing models
+			// Please don't forget to end the transaction
 			TransactionManager.beginTransaction();
 
 			createParametricModelandDiagram(projectAccessor);
 
+			// End transaction
 			TransactionManager.endTransaction();
+			
+			// Save the project
 			projectAccessor.save();
 
 			System.out.println("Create " + name + " Project done.");
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
 			TransactionManager.abortTransaction();
+		} finally {
 			projectAccessor.close();
 		}
 	}
 
 	private void createParametricModelandDiagram(ProjectAccessor projectAccessor)
 			throws Exception {
+		// Get a root model of the project
+        // Astah SysML model is tree structure. The project model is the root.
 		IModel project = projectAccessor.getProject();
 
+		// Most of SysML models like block, constraint parameter can be created by SysMLModelEditor.
+		// All models on parametric diagram can be created from SysMLModelEditor.
 		SysmlModelEditor sme = ModelEditorFactory.getSysmlModelEditor();
 
 		IPackage sysMLPackage = sme.createPackage(project, "SysML");
@@ -381,8 +398,7 @@ public class CreatingSampleSysmlParametricDiagram {
 
 		// "HSUV MOEs"
 		parde.setDiagram(parDgm1);
-		// parametic diagram's ConstraintProperty presentation created by
-		// diagram;
+		// ConstraintProperty presentations on parametric diagram are created automatically
 		INodePresentation economyEquationPropP = ((INodePresentation) economyEquationProp
 				.getPresentations()[0]);
 		economyEquationPropP.setLocation(new Point2D.Double(0, 0));
@@ -401,6 +417,9 @@ public class CreatingSampleSysmlParametricDiagram {
 		myObjectiveFunctionPropP.setWidth(220);
 		myObjectiveFunctionPropP.setHeight(220);
 
+		// There are only two kinds of presentation APIs in Astah.
+		// INodePresentation is for those presentations whose shape are like rectangle like block and port.
+		// ILinkPresentation is for those presentations whose shape are like line like connector and association.
 		INodePresentation fuelEconomyP = parde.createValuePropertyPresentation(
 				"HSUValt1.FuelEconomy", new Point2D.Double(300, 0));
 		((IValueProperty) fuelEconomyP.getModel()).addStereotype("moe");
@@ -494,15 +513,6 @@ public class CreatingSampleSysmlParametricDiagram {
 		ILinkPresentation fbindingConnectorP = parde.createLinkPresentation(
 				fbindingConnector, fPresentation, fuelEconomyP);
 		fbindingConnectorP.setProperty("line.shape", "line_right_angle");
-		// Point2D.Double[] fbindingConnectorpnts = {
-		// new Point2D.Double(fPresentation.getLocation().getX() +
-		// fPresentation.getWidth(),
-		// fPresentation.getLocation().getY() + fPresentation.getHeight() /
-		// 2.0D),
-		// new Point2D.Double(fuelEconomyP.getLocation().getX(),
-		// fPresentation.getLocation().getY() + fPresentation.getHeight() /
-		// 2.0D) };
-		// fbindingConnectorP.setAllPoints(fbindingConnectorpnts);
 		IBindingConnector qbindingConnector = sme.createBindingConnector(
 				maxAccelerationAnalysisProp, qmaxAccelerationAnalysis,
 				(IValueProperty) quarterMileTimeP.getModel(), null);
@@ -555,45 +565,18 @@ public class CreatingSampleSysmlParametricDiagram {
 		ILinkPresentation vcbindingConnectorP = parde.createLinkPresentation(
 				vcbindingConnector, vcPresentation, cargoCapacityP);
 		vcbindingConnectorP.setProperty("line.shape", "line_right_angle");
-		// Point2D.Double[] vcbindingConnectorpnts = {
-		// new Point2D.Double(vcPresentation.getLocation().getX() +
-		// vcPresentation.getWidth(),
-		// vcPresentation.getLocation().getY() + vcPresentation.getHeight() /
-		// 2.0D),
-		// new Point2D.Double(cargoCapacityP.getLocation().getX(),
-		// vcPresentation.getLocation().getY() + vcPresentation.getHeight() /
-		// 2.0D) };
-		// vcbindingConnectorP.setAllPoints(vcbindingConnectorpnts);
 		IBindingConnector ucbindingConnector = sme.createBindingConnector(
 				unitCostEquationProp, ucunitCostEquation,
 				(IValueProperty) unitCostP.getModel(), null);
 		ILinkPresentation ucbindingConnectorP = parde.createLinkPresentation(
 				ucbindingConnector, ucPresentation, unitCostP);
 		ucbindingConnectorP.setProperty("line.shape", "line_right_angle");
-		// Point2D.Double[] ucbindingConnectorpnts = {
-		// new Point2D.Double(ucPresentation.getLocation().getX() +
-		// ucPresentation.getWidth(),
-		// ucPresentation.getLocation().getY() + ucPresentation.getHeight() /
-		// 2.0D),
-		// new Point2D.Double(unitCostP.getLocation().getX(),
-		// ucPresentation.getLocation().getY() + ucPresentation.getHeight() /
-		// 2.0D) };
-		// ucbindingConnectorP.setAllPoints(ucbindingConnectorpnts);
 		IBindingConnector p1bindingConnector = sme.createBindingConnector(
 				(IValueProperty) fuelEconomyP.getModel(), null,
 				myObjectiveFunctionProp, p1myObjectiveFunction);
 		ILinkPresentation p1bindingConnectorP = parde.createLinkPresentation(
 				p1bindingConnector, fuelEconomyP, p1myObjectiveFunctionP);
 		p1bindingConnectorP.setProperty("line.shape", "line_right_angle");
-		// Point2D.Double[] p1bindingConnectorpnts = {
-		// new Point2D.Double(fuelEconomyP.getLocation().getX() +
-		// fuelEconomyP.getWidth(),
-		// p1myObjectiveFunctionP.getLocation().getY() +
-		// p1myObjectiveFunctionP.getHeight() / 2.0D),
-		// new Point2D.Double(p1myObjectiveFunctionP.getLocation().getX(),
-		// p1myObjectiveFunctionP.getLocation().getY() +
-		// p1myObjectiveFunctionP.getHeight() / 2.0D) };
-		// p1bindingConnectorP.setAllPoints(p1bindingConnectorpnts);
 		IBindingConnector p2bindingConnector = sme.createBindingConnector(
 				(IValueProperty) quarterMileTimeP.getModel(), null,
 				myObjectiveFunctionProp, p2myObjectiveFunction);
@@ -688,8 +671,7 @@ public class CreatingSampleSysmlParametricDiagram {
 
 		// "StraightLineVehicleDynamics"
 		parde.setDiagram(parDgm2);
-		// parametic diagram's ConstraintProperty presentation created by
-		// diagram;
+        // Constraint property presentations on a parametric diagram are created automatically.
 		INodePresentation powerEquationAsoEndP = ((INodePresentation) powerEquationAsoEnd
 				.getPresentations()[0]);
 		powerEquationAsoEndP.setLocation(new Point2D.Double(100, 100));

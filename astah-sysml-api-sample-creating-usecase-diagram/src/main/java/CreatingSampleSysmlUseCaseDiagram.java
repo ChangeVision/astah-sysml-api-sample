@@ -19,6 +19,9 @@ import com.change_vision.jude.api.inf.model.IUseCaseDiagram;
 import com.change_vision.jude.api.inf.presentation.INodePresentation;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for creating an usecase diagram and all models of usecase diagram.
+ */
 public class CreatingSampleSysmlUseCaseDiagram {
 	public static void main(String[] args) {
 		CreatingSampleSysmlUseCaseDiagram sample = new CreatingSampleSysmlUseCaseDiagram();
@@ -42,25 +45,35 @@ public class CreatingSampleSysmlUseCaseDiagram {
 	public void create(String name) throws ClassNotFoundException,
 			LicenseNotFoundException, ProjectNotFoundException, IOException,
 			ProjectLockedException {
+		// ProjectAccessor is an interface to Operate Astah project like creating project and getting project root.
 		ProjectAccessor projectAccessor = AstahUtil.getProjectAccessor();
 		try {
+			// Create a project
+	        // Please don't forget to save and close the project.
 			projectAccessor.create(name);
+			
+			// Begin transaction when creating or editing models
+			// Please don't forget to end the transaction
 			TransactionManager.beginTransaction();
 
 			createUseCaseModel(projectAccessor);
 
 			createUseCaseAndDiagram(projectAccessor);
 
+			// End transaction
 			TransactionManager.endTransaction();
+			
+			// Save the project
 			projectAccessor.save();
 
 			System.out.println("Create " + name + " Project done.");
 		} catch (InvalidEditingException e) {
 			e.printStackTrace();
+			TransactionManager.abortTransaction();
 		} catch (InvalidUsingException e) {
 			e.printStackTrace();
-		} finally {
 			TransactionManager.abortTransaction();
+		} finally {
 			projectAccessor.close();
 		}
 	}
@@ -68,12 +81,15 @@ public class CreatingSampleSysmlUseCaseDiagram {
 	private void createUseCaseModel(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		// Get a root model of the project
+        // Astah SysML model is tree structure. The project model is the root.
 		IModel project = projectAccessor.getProject();
-
+		
+		// Most of SysML models like block, constraint parameter can be created by SysMLModelEditor.
 		SysmlModelEditor sme = ModelEditorFactory.getSysmlModelEditor();
 		IPackage hSUVUseCasesPackage = sme.createPackage(project,
 				"HSUVUseCases");
-
+		// Models on usecase diagram can be created by UseCaseModelEditor.
 		UseCaseModelEditor ucme = ModelEditorFactory.getUseCaseModelEditor();
 		IClass departmentActor = ucme.createActor(hSUVUseCasesPackage,
 				"Department Of Motor Vehicles");
@@ -106,15 +122,23 @@ public class CreatingSampleSysmlUseCaseDiagram {
 	private void createUseCaseAndDiagram(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		// Diagrams are created by diagramEditor
 		UseCaseDiagramEditor ucde = projectAccessor.getDiagramEditorFactory()
 				.getUseCaseDiagramEditor();
 
 		IUseCaseDiagram uc = ucde.createUseCaseDiagram(
 				AstahUtil.findPackageByFullName("HSUVUseCases"), "HybridSUV");
+		// Target diagram must be set to diagramEditor.
 		ucde.setDiagram(uc);
 
+		// Create rectangle presentation on the usecase diagram
 		ucde.createRect(new Point2D.Double(150, -30), 250.0D, 600.D);
+		// Create "HybridSUV" text on the usecase diagram
 		ucde.createText("HybridSUV", new Point2D.Double(250, -30));
+		
+		// There are only two kinds of presentation APIs in Astah.
+		// INodePresentation is for those presentations whose shape are like rectangle like block and port.
+		// ILinkPresentation is for those presentations whose shape are like line like connector and association.
 		INodePresentation driveActorP = ucde.createNodePresentation(
 				AstahUtil.findActorByFullName("HSUVUseCases::Driver"),
 				new Point2D.Double(0, 0));

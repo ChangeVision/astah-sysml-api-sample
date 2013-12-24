@@ -289,6 +289,10 @@ public class AstahUtil {
     
 	public static INamedElement findPackageByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isPackage(namedElement)
@@ -308,6 +312,10 @@ public class AstahUtil {
 			final String sourceEndRollName,
 			final String targetEndRollName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isAssociation(namedElement)) {
@@ -336,6 +344,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isDeriveReqtDependency(namedElement)) {
@@ -363,6 +375,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isVerifyDependency(namedElement)) {
@@ -390,6 +406,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isSatisfyDependency(namedElement)) {
@@ -417,6 +437,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isRefineDependency(namedElement)) {
@@ -444,6 +468,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isTraceDependency(namedElement)) {
@@ -471,6 +499,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isCopyDependency(namedElement)) {
@@ -498,6 +530,10 @@ public class AstahUtil {
 			final IRequirement target, 
 			final String name) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isAllocateDependency(namedElement)) {
@@ -525,6 +561,10 @@ public class AstahUtil {
 			final String name,
 			final IClass type) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isConstraintParameter(namedElement)) {
@@ -552,6 +592,10 @@ public class AstahUtil {
 			final String name,
 			final IClass type) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isConstraintProperty(namedElement)) {
@@ -579,6 +623,10 @@ public class AstahUtil {
 			final String name,
 			final IBlock type) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isPart(namedElement)) {
@@ -606,6 +654,10 @@ public class AstahUtil {
 			final String name,
 			final IBlock type) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					if (isReference(namedElement)) {
@@ -630,6 +682,10 @@ public class AstahUtil {
 	
 	public static INamedElement findRequirementByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isRequirement(namedElement)
@@ -644,6 +700,10 @@ public class AstahUtil {
 	
 	public static INamedElement findTestCaseByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isTestCase(namedElement)
@@ -658,6 +718,10 @@ public class AstahUtil {
 	
 	public static INamedElement findBlockByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isBlock(namedElement)
@@ -672,6 +736,10 @@ public class AstahUtil {
 	
 	public static INamedElement findInterfaceBlockByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isInterfaceBlock(namedElement)
@@ -686,6 +754,10 @@ public class AstahUtil {
 	
 	public static INamedElement findConstraintBlockByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isConstraintBlock(namedElement)
@@ -700,6 +772,10 @@ public class AstahUtil {
 	
 	public static INamedElement findValueTypeByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isValueType(namedElement)
@@ -714,6 +790,10 @@ public class AstahUtil {
 	
 	public static INamedElement findUnitByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isUnit(namedElement)
@@ -728,6 +808,10 @@ public class AstahUtil {
 	
 	public static INamedElement findActorByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isActor(namedElement)
@@ -742,6 +826,10 @@ public class AstahUtil {
 	
 	public static INamedElement findUseCaseByFullName(final String fullName) {
 		try {
+			// There are three methods to search from ProjectAccessor.
+            // public INamedElement[] findElements(Class elementKind, String name) throws ProjectNotFoundException;
+			// public abstract INamedElement[] findElements(Class elementKind) throws ProjectNotFoundException;
+			// public INamedElement[] findElements(ModelFinder picker) throws ProjectNotFoundException;
 			INamedElement[] results = projectAccessor.findElements(new ModelFinder() {
 				public boolean isTarget(INamedElement namedElement) {
 					return isUseCase(namedElement)

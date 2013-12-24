@@ -23,6 +23,9 @@ import com.change_vision.jude.api.inf.presentation.ILinkPresentation;
 import com.change_vision.jude.api.inf.presentation.INodePresentation;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for creating an requirement diagram and all models of requirement diagram.
+ */
 public class CreatingSampleSysmlRequirementDiagram {
 	public static void main(String[] args) {
 		CreatingSampleSysmlRequirementDiagram sample = new CreatingSampleSysmlRequirementDiagram();
@@ -46,25 +49,37 @@ public class CreatingSampleSysmlRequirementDiagram {
 	public void create(String name) throws ClassNotFoundException,
 			LicenseNotFoundException, ProjectNotFoundException, IOException,
 			ProjectLockedException {
+		// ProjectAccessor is an interface to Operate Astah project like creating project and getting project root.
 		ProjectAccessor projectAccessor = AstahUtil.getProjectAccessor();
 		try {
+			
+			// Create a project
+	        // Please don't forget to save and close the project.
 			projectAccessor.create(name);
+			
+			// Begin transaction when creating or editing models
+			// Please don't forget to end the transaction
 			TransactionManager.beginTransaction();
 
 			createRequirementModels(projectAccessor);
 
 			createRequirementdDiagrams(projectAccessor);
 
+			// End transaction
 			TransactionManager.endTransaction();
+			
+			// Save the project
 			projectAccessor.save();
 
 			System.out.println("Create " + name + " Project done.");
 		} catch (InvalidEditingException e) {
 			e.printStackTrace();
+			TransactionManager.abortTransaction();
 		} catch (InvalidUsingException e) {
 			e.printStackTrace();
-		} finally {
 			TransactionManager.abortTransaction();
+		} finally {
+			// Close the project
 			projectAccessor.close();
 		}
 	}
@@ -72,9 +87,14 @@ public class CreatingSampleSysmlRequirementDiagram {
 	private void createRequirementModels(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		// Get a root model of the project
+        // Astah SysML model is tree structure. The project model is the root.
 		IModel project = projectAccessor.getProject();
 
+		// Most of SysML models like block, constraint parameter can be created by SysMLModelEditor.
 		SysmlModelEditor sme = ModelEditorFactory.getSysmlModelEditor();
+		
+		// Models on usecase diagram can be created by UseCaseModelEditor.
 		UseCaseModelEditor ucd = ModelEditorFactory.getUseCaseModelEditor();
 
 		IPackage hSUVRequirementsPackage = sme.createPackage(project,
@@ -140,6 +160,8 @@ public class CreatingSampleSysmlRequirementDiagram {
 	private void createRequirementdDiagrams(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		
+		// Diagrams are created by diagramEditor.
 		RequirementDiagramEditor rde = projectAccessor
 				.getDiagramEditorFactory().getRequirementDiagramEditor();
 		IRequirementDiagram reqDgm = rde.createRequirementDiagram(
@@ -150,15 +172,23 @@ public class CreatingSampleSysmlRequirementDiagram {
 				"HSUV Specification");
 
 		// "Acceleration Requirement Refinement and Verification"
+		// RequirementDiagramEditor can be used to create presentations on a requirement diagram.
+		// Target diagram must be set to diagramEditor.
 		rde.setDiagram(reqDgm);
 		INodePresentation accelerationRequirementqP = rde
 				.createNodePresentation(
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::Acceleration"),
 						new Point2D.Double(300, 0));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		accelerationRequirementqP.setProperty("detail_compartment_visibility",
 				"true");
+		// Id compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		accelerationRequirementqP.setProperty("id_visibility", "true");
+		// Text compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		accelerationRequirementqP.setProperty("text_visibility", "true");
 		INodePresentation accelerateUseCaseP = rde.createNodePresentation(
 				AstahUtil.findUseCaseByFullName("HSUVUseCases::Accelerate"),
@@ -175,8 +205,14 @@ public class CreatingSampleSysmlRequirementDiagram {
 		INodePresentation powerRequirementP = rde.createNodePresentation(
 				AstahUtil.findRequirementByFullName("HSUVRequirements::Power"),
 				new Point2D.Double(300, 300));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		powerRequirementP.setProperty("detail_compartment_visibility", "true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		powerRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		powerRequirementP.setProperty("text_visibility", "true");
 		ILinkPresentation powerDeriveReqtDependencyP = rde
 				.createLinkPresentation(
@@ -227,9 +263,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Eco-Friendliness"),
 						new Point2D.Double(0, 200));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		ecoFriendlinessRequirementP.setProperty(
 				"detail_compartment_visibility", "true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		ecoFriendlinessRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		ecoFriendlinessRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(hSUVSpecificationPackageP,
 				ecoFriendlinessRequirementP);
@@ -238,9 +280,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Performance"),
 						new Point2D.Double(250, 200));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		performanceRequirementP.setProperty("detail_compartment_visibility",
 				"true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		performanceRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		performanceRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(hSUVSpecificationPackageP,
 				performanceRequirementP);
@@ -249,9 +297,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Ergonomics"),
 						new Point2D.Double(600, 200));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		ergonomicsRequirementP.setProperty("detail_compartment_visibility",
 				"true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		ergonomicsRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		ergonomicsRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(hSUVSpecificationPackageP,
 				ergonomicsRequirementP);
@@ -260,9 +314,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Qualification"),
 						new Point2D.Double(800, 200));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		qualificationRequirementP.setProperty("detail_compartment_visibility",
 				"true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		qualificationRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		qualificationRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(hSUVSpecificationPackageP,
 				qualificationRequirementP);
@@ -271,9 +331,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::Capacity"),
 						new Point2D.Double(1000, 200));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		capacityRequirementP.setProperty("detail_compartment_visibility",
 				"true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		capacityRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		capacityRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(hSUVSpecificationPackageP,
 				capacityRequirementP);
@@ -282,9 +348,14 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Performance::Braking"),
 						new Point2D.Double(150, 400));
-		brakingRequirementP
-				.setProperty("detail_compartment_visibility", "true");
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
+		brakingRequirementP.setProperty("detail_compartment_visibility", "true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		brakingRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		brakingRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(performanceRequirementP,
 				brakingRequirementP);
@@ -293,9 +364,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Performance::FuelEconomy"),
 						new Point2D.Double(270, 400));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		fuelEconomyRequirementP.setProperty("detail_compartment_visibility",
 				"true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		fuelEconomyRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		fuelEconomyRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(performanceRequirementP,
 				fuelEconomyRequirementP);
@@ -304,9 +381,15 @@ public class CreatingSampleSysmlRequirementDiagram {
 						AstahUtil
 								.findRequirementByFullName("HSUVRequirements::HSUVSpecification::Performance::OffRoadCapability"),
 						new Point2D.Double(390, 400));
+		// Detail compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		offRoadCapabilityRequirementP.setProperty(
 				"detail_compartment_visibility", "true");
+		// Id is visible.
+		// Properties such as color and shape can be set by setProperty.
 		offRoadCapabilityRequirementP.setProperty("id_visibility", "true");
+		// Text is visible.
+		// Properties such as color and shape can be set by setProperty.
 		offRoadCapabilityRequirementP.setProperty("text_visibility", "true");
 		rde.createContainmentLinkPresentation(performanceRequirementP,
 				offRoadCapabilityRequirementP);

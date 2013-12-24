@@ -30,6 +30,9 @@ import com.change_vision.jude.api.inf.model.IValueType;
 import com.change_vision.jude.api.inf.presentation.INodePresentation;
 import com.change_vision.jude.api.inf.project.ProjectAccessor;
 
+/**
+ * Sample source codes for creating an block definition diagram and all models of block definition diagram.
+ */
 public class CreatingSampleSysmlBlockDefnitionDiagram {
 	public static void main(String[] args) {
 		CreatingSampleSysmlBlockDefnitionDiagram sample = new CreatingSampleSysmlBlockDefnitionDiagram();
@@ -53,25 +56,37 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 	public void create(String name) throws ClassNotFoundException,
 			LicenseNotFoundException, ProjectNotFoundException, IOException,
 			ProjectLockedException {
+		
+		// ProjectAccessor is an interface to Operate Astah project like creating project and getting project root.
 		ProjectAccessor projectAccessor = AstahUtil.getProjectAccessor();
 		try {
+			
+			// Create a project
+	        // Please don't forget to save and close the project.
 			projectAccessor.create(name);
+			
+			// Begin transaction when creating or editing models
+			// Please don't forget to end the transaction
 			TransactionManager.beginTransaction();
 
 			createBlockModels(projectAccessor);
 
 			createBlockDefnitionDiagram(projectAccessor);
 
+			// End transaction
 			TransactionManager.endTransaction();
+			
+			// Save the project
 			projectAccessor.save();
 
 			System.out.println("Create " + name + " Project done.");
 		} catch (InvalidEditingException e) {
 			e.printStackTrace();
+			TransactionManager.abortTransaction();
 		} catch (InvalidUsingException e) {
 			e.printStackTrace();
-		} finally {
 			TransactionManager.abortTransaction();
+		} finally {
 			projectAccessor.close();
 		}
 	}
@@ -79,8 +94,13 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 	private void createBlockModels(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
+		
+		// Get a root model of the project
+        // Astah SysML model is tree structure. The project model is the root.
 		IModel project = projectAccessor.getProject();
 
+		// Most of SysML models like block, constraint parameter can be created by SysMLModelEditor.
+		// All models on block defintion diagram can be created from SysMLModelEditor.
 		SysmlModelEditor sme = ModelEditorFactory.getSysmlModelEditor();
 
 		IPackage sysMLPackage = sme.createPackage(project, "SysML");
@@ -358,6 +378,7 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 		// Part
 		IAssociation driverActorAso = sme.createAssociation(
 				automotiveDomainBlock, driverActor, "", "", "");
+		// AssociationEnd is IAttribute.
 		IAttribute[] driverActorAsoEnds = driverActorAso.getMemberEnds();
 		driverActorAsoEnds[0].setComposite();
 		IAssociation maintainerActorAso = sme.createAssociation(
@@ -487,7 +508,7 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 	private void createBlockDefnitionDiagram(ProjectAccessor projectAccessor)
 			throws InvalidEditingException, ClassNotFoundException,
 			ProjectNotFoundException, InvalidUsingException {
-		// Diagram
+		// Diagrams are created by diagramEditor
 		BlockDefinitionDiagramEditor bdde = projectAccessor
 				.getDiagramEditorFactory().getBlockDefinitionDiagramEditor();
 		IBlockDefinitionDiagram bdddod = bdde.createBlockDefinitionDiagram(
@@ -507,14 +528,26 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 				"HybridSUV BreakDown");
 
 		// "Definition of Dynamics"
+		// BlockDefinitionDiagramEditor can be used to create presentations on a block definition diagram.
+		// Target diagram must be set to diagramEditor.
 		bdde.setDiagram(bdddod);
+		
+		// There are only two kinds of presentation APIs in Astah.
+		// INodePresentation is for those presentations whose shape are like rectangle like block and port.
+		// ILinkPresentation is for those presentations whose shape are like line like connector and association.
 		INodePresentation straightLineVehicleDynamicsP = bdde
 				.createNodePresentation(
 						AstahUtil
 								.findConstraintBlockByFullName("HSUV MOEs::StraightLineVehicleDynamics"),
 						new Point2D.Double(300, 0));
+		
+		// Constraint is visible.
+		// Properties such as color and shape can be set by setProperty.
 		straightLineVehicleDynamicsP.setProperty("constraint_visibility",
 				"true");
+		
+		// Parameter compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		straightLineVehicleDynamicsP.setProperty(
 				"parameter_compartment_visibility", "true");
 		INodePresentation powerEquationP = bdde
@@ -522,7 +555,11 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 						AstahUtil
 								.findConstraintBlockByFullName("HSUV MOEs::PowerEquation"),
 						new Point2D.Double(0, 400));
+		// Constraint is visible.
+		// Properties such as color and shape can be set by setProperty.
 		powerEquationP.setProperty("constraint_visibility", "true");
+		// Constraint is visible.
+		// Properties such as color and shape can be set by setProperty.
 		powerEquationP.setProperty("parameter_compartment_visibility", "true");
 		bdde.createLinkPresentation(
 				((IConstraintProperty) AstahUtil
@@ -539,6 +576,8 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 						AstahUtil
 								.findConstraintBlockByFullName("HSUV MOEs::PostionEquation"),
 						new Point2D.Double(200, 400));
+		// Constraint is visible.
+		// Properties such as color and shape can be set by setProperty.
 		postionEquationP.setProperty("constraint_visibility", "true");
 		postionEquationP
 				.setProperty("parameter_compartment_visibility", "true");
@@ -557,6 +596,8 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 						AstahUtil
 								.findConstraintBlockByFullName("HSUV MOEs::VelocityEquation"),
 						new Point2D.Double(400, 400));
+		// Constraint is visible.
+		// Properties such as color and shape can be set by setProperty.
 		velocityEquationP.setProperty("constraint_visibility", "true");
 		velocityEquationP.setProperty("parameter_compartment_visibility",
 				"true");
@@ -596,6 +637,9 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 						AstahUtil
 								.findBlockByFullName("HSUVStructure::AutomotiveDomain"),
 						new Point2D.Double(400, 0));
+		
+		// Stereotype is visible
+		// Properties such as color and shape can be set by setProperty.
 		automotiveDomainBlockP.setProperty("stereotype_visibility", "true");
 		INodePresentation driverActorP = bdde.createNodePresentation(
 				AstahUtil.findActorByFullName("HSUVStructure::Driver"),
@@ -644,6 +688,8 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 		INodePresentation baggageBlockP = bdde.createNodePresentation(
 				AstahUtil.findBlockByFullName("HSUVStructure::Baggage"),
 				new Point2D.Double(800, 200));
+		// Stereotype is visible.
+		// Properties such as color and shape can be set by setProperty.
 		baggageBlockP.setProperty("stereotype_visibility", "true");
 		bdde.createLinkPresentation(
 				((IAttribute) AstahUtil
@@ -735,6 +781,8 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 						AstahUtil
 								.findBlockByFullName("HSUVStructure::FuelTankAssembly"),
 						new Point2D.Double(0, 200));
+		// Flow compartment is visible.
+		// Properties such as color and shape can be set by setProperty.
 		fuelTankAssemblyBlockP.setProperty("flow_compartment_visibility",
 				"true");
 		bdde.createLinkPresentation(
@@ -767,6 +815,8 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 		INodePresentation fuelFlowBlockP = bdde.createNodePresentation(
 				AstahUtil.findBlockByFullName("HSUVStructure::FuelFlow"),
 				new Point2D.Double(100, 400));
+		
+		// Flow compartment is visible
 		fuelFlowBlockP.setProperty("flow_compartment_visibility", "true");
 		fuelFlowBlockP.setProperty("stereotype_visibility", "true");
 
@@ -775,6 +825,8 @@ public class CreatingSampleSysmlBlockDefnitionDiagram {
 		INodePresentation hybridSUVBlockP2 = bdde.createNodePresentation(
 				AstahUtil.findBlockByFullName("HSUVStructure::HybridSUV"),
 				new Point2D.Double(600, 0));
+		// stereotype is visible.
+		// Properties such as color and shape can be set by setProperty.
 		hybridSUVBlockP2.setProperty("stereotype_visibility", "true");
 		INodePresentation powerSubsystemBlockP2 = bdde.createNodePresentation(
 				AstahUtil.findBlockByFullName("HSUVStructure::PowerSubsystem"),
