@@ -10,7 +10,7 @@
 
 ## Note
 
-  * This API sample is available for Astah SysML.
+  * This API sample is available for Astah SysML 1.1 or later.
     
 ## License
 Copyright 2012 Change Vision, Inc.
