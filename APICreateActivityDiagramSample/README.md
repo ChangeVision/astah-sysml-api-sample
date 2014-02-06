@@ -1,4 +1,4 @@
-# Samples telling how to create presentations on activity diagram by Astah SysML API (API Sample)
+# API Sample telling how to create presentations on activity diagram by Astah SysML API
 
 ## How to use
 
