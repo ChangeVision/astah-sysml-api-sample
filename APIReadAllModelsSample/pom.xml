@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.change_vision.astah</groupId>
-	<artifactId>astah-sysml-api-sample-reading-all-models</artifactId>
+	<artifactId>APIReadAllModelsSample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SysML API sample</name>
 	<properties>
@@ -12,7 +12,24 @@
 <!-- 
     <astahPath>C:/Program Files/astah-sysml1.1</astahPath>
 -->
+		<bundle.symbolicName>APIReadAllModelsSample</bundle.symbolicName>
+		<bundle.namespace>com.change_vision.astah</bundle.namespace>
+		<plugin.install>true</plugin.install>
+		<classpath>${astahPath}/astah-api.jar:${astahPath}/astah-sys.jar:target/classes</classpath>
 	</properties>
+	<profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <classpath>${astahPath}\astah-api.jar;${astahPath}\astah-sys.jar;target\classes</classpath>
+            </properties>
+        </profile>
+    </profiles>
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
@@ -28,6 +45,51 @@
 				<directory>src/test/resources</directory>
 			</testResource>
 		</testResources>
+	<plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.change_vision.astah</groupId>
+        <artifactId>astah-maven-plugin</artifactId>
+        <version>0.9.3</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-classpath</argument>
+            <argument>${classpath}</argument>
+            <argument>ReadingSampleSysmlModels</argument>
+            <argument>${modelPath}</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
 	</build>
 	<dependencies>
 		<dependency>

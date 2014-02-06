@@ -54,12 +54,18 @@ public class ReadingSampleSysmlModels {
 	private static ProjectAccessor projectAccessor;
 
 	public static void main(String[] args) throws Exception {
+		if(args.length != 1){
+            System.err.println("Usage: astah-mvn -q exec:exec -DmodelPath=YOUR_MODEL_PATH. YOUR_MODEL_PATH should be added.");
+            System.exit(1);
+        }
+        String projectPath = args[0];
+        
 		AstahAPI api = AstahAPI.getAstahAPI();
 		projectAccessor = api.getProjectAccessor();
 		try {
 			showInConsle(0, "[Start ReadingSampleSysmlModels]");
 
-			openSampleModel("Sample.asml");
+			openSampleModel(projectPath);
 
 			showModels();
 
