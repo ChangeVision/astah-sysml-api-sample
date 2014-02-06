@@ -26,17 +26,21 @@ import com.change_vision.jude.api.inf.project.ProjectAccessor;
  * and other presentations. 
  */
 public class APIForCreatingPresentationsSample {
-	
-	private static final String PROJECT_PATH = "./SampleModel.asml";
-	
+		
 	public static void main(String[] args) {
 		
 		try {
+            if(args.length != 1){
+                System.err.println("Usage: astah-mvn -q exec:exec -DmodelPath=YOUR_MODEL_PATH. YOUR_MODEL_PATH should be added.");
+                System.exit(1);
+            }
+            String projectPath = args[0];
+            
 			System.out.println("Creating new project...");
 			
             // Create a project and get a root model
 			ProjectAccessor prjAccessor = AstahAPI.getAstahAPI().getProjectAccessor();
-			prjAccessor.create(PROJECT_PATH);
+			prjAccessor.create(projectPath);
 			
 			// Get a project model. 
 			// Please don't forget to close the project
