@@ -1,4 +1,4 @@
-# 指定したastahのモデルファイルのERモデルの情報を標準出力に出力する (APIサンプル)
+# astahのモデルファイルを作成するまたは指定したastahのモデルファイルの情報を標準出力に出力する (APIサンプル)
 ![image](https://github.com/ChangeVision/astah-sysml-api-sample/raw/master/APIReadSample/apiReadModelSampleImage.png)
 
 ## 使い方
@@ -11,7 +11,7 @@
 
 ## 注意事項
 
- * 当APIサンプルのコンパイルと実行にはastah* sysmllが必要です。
+ * 当APIサンプルのコンパイルと実行にはastah* SysMLが必要です。
 
 ## License
 Copyright 2012 Change Vision, Inc.
