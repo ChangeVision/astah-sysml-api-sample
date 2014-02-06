@@ -1,6 +1,3 @@
-astah-sysml-api-sample-creating-activity-diagram
-=============================
-
 # Samples telling how to create presentations on activity diagram by Astah SysML API (API Sample)
 
 ## How to use
