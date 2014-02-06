@@ -1,5 +1,5 @@
 # Samples telling how to read/create Astah SysML models by Astah SysML API (API Sample)
-![image](https://github.com/ChangeVision/astah-sysml-api-sample/apiReadModelSampleImage.png)
+![image](https://github.com/ChangeVision/astah-sysml-api-sample/APIReadSample/apiReadModelSampleImage.png)
 
 ## How to use
 
