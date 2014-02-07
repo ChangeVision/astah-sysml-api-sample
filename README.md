@@ -7,7 +7,7 @@
 2. clone one sample repository
 3. `cd [created directory]`
 4. run `astah-build`
-5. run `astah-mvn -q exec:exec -DmodelPath=YOUR_MODEL_PATH`
+5. run `astah-mvn -q exec:exec [-DmodelPath=YOUR_MODEL_PATH]`
 
 ## Note
 
