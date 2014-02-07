@@ -5,13 +5,13 @@
 
 1. [Install Astah Plug-in SDK](http://astah.net/features/sdk)
 2. clone one sample repository
-3. `cd [unzipped directory]`
+3. `cd [created directory]`
 4. run `astah-build`
 5. run `astah-mvn -q exec:exec -DmodelPath=YOUR_MODEL_PATH`
 
 ## Note
 
-  * This API sample is available for Astah SysML.
+  * This API sample is available for Astah SysML 1.1 or later.
     
 ## License
 Copyright 2012 Change Vision, Inc.

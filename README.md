@@ -5,7 +5,7 @@
 
 1. [Install Astah Plug-in SDK](http://astah.net/features/sdk)
 2. clone one sample repository
-3. `cd [sample directory]`
+3. `cd [created directory]`
 4. run `astah-build`
 5. run `astah-mvn -q exec:exec -DmodelPath=YOUR_MODEL_PATH`
 

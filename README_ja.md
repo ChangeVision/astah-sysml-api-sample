@@ -5,13 +5,13 @@
 
 1. [Astah Plug-in SDKをインストール(このサンプルのコンパイルと実行に利用します)](http://astah.change-vision.com/ja/plugin-tutorial/devenv.html)
 2. サンプルのリポジトリをcloneする。
-3. 適当なフォルダに解凍し、コンソール上でそのフォルダを作業フォルダに指定してください。
+3. コンソール上でcloneでできたフォルダを作業フォルダに指定してください。
 3. `astah-build` を実行してください。
-5. `astah-mvn -q exec:exec -DmodelPath=YOUR_MODEL_PATH` を実行する。
+5. `astah-mvn -q exec:exec [-DmodelPath=YOUR_MODEL_PATH]` を実行する。
 
 ## 注意事項
 
- * 当APIサンプルのコンパイルと実行にはastah* SysMLが必要です。
+ * 当APIサンプルのコンパイルと実行にはastah* SysML1.1以上が必要です。
 
 ## License
 Copyright 2012 Change Vision, Inc.
