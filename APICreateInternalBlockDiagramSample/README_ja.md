@@ -1,5 +1,4 @@
-# astahのモデルファイルを作成するまたは指定したastahのモデルファイルの情報を標準出力に出力する (APIサンプル)
-![image](https://github.com/ChangeVision/astah-sysml-api-sample/raw/master/APIReadSample/apiReadModelSampleImage.png)
+# 内部ブロック図上の各要素を作成します (APIサンプル)
 
 ## 使い方
 
