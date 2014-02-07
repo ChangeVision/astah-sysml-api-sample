@@ -85,7 +85,6 @@
             <argument>-classpath</argument>
             <argument>${classpath}</argument>
             <argument>CreatingSampleSysmlUseCaseDiagram</argument>
-            <argument>${modelPath}</argument>
           </arguments>
         </configuration>
       </plugin>

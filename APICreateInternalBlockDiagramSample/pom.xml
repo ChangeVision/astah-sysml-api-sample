@@ -85,7 +85,6 @@
             <argument>-classpath</argument>
             <argument>${classpath}</argument>
             <argument>CreatingSampleSysmlInternalBlockDiagram</argument>
-            <argument>${modelPath}</argument>
           </arguments>
         </configuration>
       </plugin>
