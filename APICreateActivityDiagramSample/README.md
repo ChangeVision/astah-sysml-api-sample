@@ -1,4 +1,4 @@
-# API Sample telling how to create presentations on activity diagram by Astah SysML API
+# API Sample of creating presentations on Activity Diagram using Astah SysML API
 
 ## How to use
 
@@ -13,7 +13,7 @@
   * This API sample is available for Astah SysML 1.1 or later.
     
 ## License
-Copyright 2012 Change Vision, Inc.
+Copyright 2012-2014 Change Vision, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this work except in compliance with the License.
