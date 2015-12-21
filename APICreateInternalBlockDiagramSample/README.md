@@ -1,4 +1,4 @@
-# API Sample telling how to create presentations on block diagram by Astah SysML API
+# API Sample telling how to create presentations on Internal Block Diagram by Astah SysML API
 
 ## How to use
 
